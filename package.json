@@ -1,0 +1,13 @@
+{
+  "name": "cicd-demo",
+  "version": "1.0.0",
+  "description": "CI/CD + Playwright 自动化测试演示",
+  "scripts": {
+    "test": "playwright test",
+    "serve": "serve src -p 3000"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.42.0",
+    "serve": "^14.2.0"
+  }
+}
