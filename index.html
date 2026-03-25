@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>任务管理器</title>
+  <style>
+    body { font-family: sans-serif; max-width: 500px; margin: 60px auto; padding: 0 20px; }
+    h1 { color: #333; }
+    #input-area { display: flex; gap: 8px; margin-bottom: 20px; }
+    input[type="text"] { flex: 1; padding: 8px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; }
+    button { padding: 8px 16px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    #task-list { list-style: none; padding: 0; }
+    #task-list li { display: flex; align-items: center; gap: 10px; padding: 10px; border-bottom: 1px solid #eee; }
+    #task-list li.done span { text-decoration: line-through; color: #aaa; }
+    .delete-btn { margin-left: auto; background: #e53935; padding: 4px 10px; font-size: 12px; }
+    #count { color: #888; font-size: 14px; margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <h1>任务管理器</h1>
+  <div id="input-area">
+    <input type="text" id="task-input" placeholder="输入新任务..." />
+    <button id="add-btn" onclick="addTask()">添加</button>
+  </div>
+  <ul id="task-list"></ul>
+  <p id="count">共 0 个任务，已完成 0 个</p>
+  <script>
+    let tasks = [];
+    function addTask() {
+      const input = document.getElementById('task-input');
+      const text = input.value.trim();
+      if (!text) return;
+      tasks.push({ text, done: false });
+      input.value = '';
+      render();
+    }
+    function toggleTask(i) { tasks[i].done = !tasks[i].done; render(); }
+    function deleteTask(i) { tasks.splice(i, 1); render(); }
+    function render() {
+      document.getElementById('task-list').innerHTML = tasks.map((t,i) =>
+        '<li class="'+(t.done?'done':'')+'"><input type="checkbox" '+(t.done?'checked':'')+' onchange="toggleTask('+i+')"><span>'+t.text+'</span><button class="delete-btn" onclick="deleteTask('+i+')">删除</button></li>').join('');
+      document.getElementById('count').textContent = '共 '+tasks.length+' 个任务，已完成 '+tasks.filter(t=>t.done).length+' 个';
+    }
+    document.getElementById('task-input').addEventListener('keydown', e => { if(e.key==='Enter') addTask(); });
+  </script>
+</body>
+</html>
