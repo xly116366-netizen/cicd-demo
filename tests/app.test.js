@@ -5,7 +5,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('页面标题正确', async ({ page }) => {
-  await expect(page).toHaveTitle('我的任务清单_test');
+  await expect(page).toHaveTitle('我的任务清单');
 });
 
 test('可以添加新任务', async ({ page }) => {
